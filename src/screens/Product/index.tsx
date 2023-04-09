@@ -23,6 +23,10 @@ import {
   RatingRate,
   ButtonAddToCart,
   ButtonText,
+  FavoriteArea,
+  CategoryArea,
+  CategoryText,
+  FavoriteButton,
 } from './styles';
 
 type ScreenProps = NativeStackScreenProps<AppStackParamList, 'Product'>;
@@ -55,6 +59,15 @@ export default function Product({ route }: ScreenProps) {
         <PhotoArea>
           <Photo source={{ uri: image }} />
         </PhotoArea>
+
+        <FavoriteArea>
+          <CategoryArea>
+            <CategoryText>{category}</CategoryText>
+          </CategoryArea>
+          <FavoriteButton>
+            <Icon name="hearto" color={theme.colors.green} />
+          </FavoriteButton>
+        </FavoriteArea>
 
         <Name>{title}</Name>
         <Description>{description}</Description>

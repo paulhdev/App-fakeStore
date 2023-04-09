@@ -72,6 +72,30 @@ export const Photo = styled.Image.attrs({
   height: 200px;
 `;
 
+export const FavoriteArea = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+
+export const FavoriteButton = styled.TouchableOpacity``;
+
+export const CategoryArea = styled.View`
+  align-items: center;
+  justify-content: center;
+  background: ${props => props.theme.colors.black};
+  padding: 3px 7px;
+  border-radius: 4px;
+`;
+
+export const CategoryText = styled.Text`
+  font-size: 12px;
+  font-weight: bold;
+  color: ${props => props.theme.colors.white};
+`;
+
 export const Name = styled.Text`
   font-size: 24px;
   font-weight: bold;
