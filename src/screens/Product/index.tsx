@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import theme from '../../global/theme';
+
 import { AppStackParamList } from '../../routes/app.routes';
+import theme from '../../global/theme';
 
 import {
   Container,
@@ -29,20 +31,46 @@ import {
   FavoriteButton,
 } from './styles';
 
+import { isFavorite, saveFavorite, removeFavorite } from '../../utils/storage';
+import { ProductProps } from '../../components/ProductCard';
+
 type ScreenProps = NativeStackScreenProps<AppStackParamList, 'Product'>;
 
 export default function Product({ route }: ScreenProps) {
 
   const navigation = useNavigation();
 
-  const {
-    title,
-    image,
-    description,
-    category,
-    price,
-    rating,
-  } = route.params;
+  const [favorite, setFavorite] = useState(false);
+
+  const product: ProductProps = {
+    id: route.params.id,
+    category: route.params.category,
+    title: route.params.title,
+    image: route.params.image,
+    description: route.params.description,
+    price: route.params.price,
+    rating: route.params.rating,
+  };
+
+  const getFavoriteStatus = async () => {
+    const favoriteProduct = await isFavorite(product);
+    setFavorite(favoriteProduct);
+  };
+
+  const handleToggleFavorite = async () => {
+    if (favorite) {
+      await removeFavorite(product.id);
+      setFavorite(false);
+      return;
+    }
+
+    saveFavorite('@appfakestore', product);
+    setFavorite(true);
+  };
+
+  useEffect(() => {
+    getFavoriteStatus();
+  }, []);
 
   return (
     <Container>
@@ -57,31 +85,31 @@ export default function Product({ route }: ScreenProps) {
       <ContentArea showsVerticalScrollIndicator={false}>
 
         <PhotoArea>
-          <Photo source={{ uri: image }} />
+          <Photo source={{ uri: product.image }} />
         </PhotoArea>
 
         <FavoriteArea>
           <CategoryArea>
-            <CategoryText>{category}</CategoryText>
+            <CategoryText>{product.category}</CategoryText>
           </CategoryArea>
-          <FavoriteButton>
-            <Icon name="hearto" color={theme.colors.green} />
+          <FavoriteButton onPress={handleToggleFavorite}>
+            <Icon name={favorite ? 'heart' : 'hearto'} color={theme.colors.green} />
           </FavoriteButton>
         </FavoriteArea>
 
-        <Name>{title}</Name>
-        <Description>{description}</Description>
+        <Name>{product.title}</Name>
+        <Description>{product.description}</Description>
 
         <Line />
 
         <PriceArea>
-          <Price>$ {price}</Price>
+          <Price>$ {Number(product.price).toFixed(2)}</Price>
           <RatingArea>
             <RatingInfoArea>
               <Icon name="star" color={theme.feedback.warning} size={16} />
-              <RatingRate>{rating.rate}</RatingRate>
+              <RatingRate>{product.rating.rate}</RatingRate>
             </RatingInfoArea>
-            <RatingCount>Reviews {rating.count}</RatingCount>
+            <RatingCount>Reviews {product.rating.count}</RatingCount>
           </RatingArea>
         </PriceArea>
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, ListRenderItemInfo, FlatList } from 'react-native';
 
 import {
@@ -23,6 +23,10 @@ export default function Home() {
   useEffect(() => {
     getAllProducts();
   }, []);
+
+  const filteredProducts = useMemo(() => {
+    return products?.filter(product => search ? product.title.toString().toLowerCase().includes(search.toLocaleLowerCase()) : true);
+  }, [search, products]);
 
   const getAllProducts = async () => {
     try {
@@ -51,9 +55,16 @@ export default function Home() {
           value={search}
           onChangeText={text => setSearch(text)}
         />
-        <ButtonSearch>
-          <Icon name="search1" />
-        </ButtonSearch>
+        {
+          search ?
+            <ButtonSearch onPress={() => setSearch('')}>
+              <Icon name="close" />
+            </ButtonSearch>
+            :
+            <ButtonSearch>
+              <Icon name="search1" />
+            </ButtonSearch>
+        }
       </InputSearchArea>
 
       {
@@ -62,7 +73,7 @@ export default function Home() {
           :
           <FlatList
             ListHeaderComponent={<Title>Hot Sales</Title>}
-            data={products}
+            data={filteredProducts}
             keyExtractor={item => item.id}
             renderItem={renderItem}
             numColumns={2}

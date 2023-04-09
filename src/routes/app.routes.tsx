@@ -76,8 +76,8 @@ export default function AppRoutes() {
         name="Favorites"
         component={Favorites}
         options={{
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="hearto" color={color} size={size} />;
+          tabBarIcon: ({ color, size, focused }) => {
+            return <Icon name={focused ? 'heart' : 'hearto'} color={color} size={size} />;
           },
         }}
       />

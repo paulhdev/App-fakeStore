@@ -66,7 +66,7 @@ export default function ProductCard({
             title.length > 15 ? `${title.substr(0, 15)}...` : title
           }
         </Name>
-        <Price>$ {price}</Price>
+        <Price>$ {Number(price).toFixed(2)}</Price>
       </NameArea>
       <Description numberOfLines={2}>
         {description}
