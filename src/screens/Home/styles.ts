@@ -7,6 +7,18 @@ export const Container = styled.View`
   padding: 5%;
 `;
 
+export const EmptyArea = styled.View`
+  width: 100%;
+  align-items: center;
+  margin: 30px 0;
+`;
+
+export const EmptyText = styled.Text`
+  font-size: 20px;
+  color: ${props => props.theme.colors.black};
+  margin-top: 30px;
+`;
+
 export const InputSearchArea = styled.View`
   width: 100%;
   height: 50px;

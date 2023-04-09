@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, ListRenderItemInfo, FlatList } from 'react-native';
+import Lottie from 'lottie-react-native';
 
 import {
   Container,
+  EmptyArea,
+  EmptyText,
   InputSearchArea,
   InputSearch,
   ButtonSearch,
@@ -68,17 +71,33 @@ export default function Home() {
       </InputSearchArea>
 
       {
-        loadingProducts ?
-          <ActivityIndicator color={theme.colors.green} size="large" />
-          :
-          <FlatList
-            ListHeaderComponent={<Title>Hot Sales</Title>}
-            data={filteredProducts}
-            keyExtractor={item => item.id}
-            renderItem={renderItem}
-            numColumns={2}
-            showsVerticalScrollIndicator={false}
+        (filteredProducts?.length <= 0 && !loadingProducts) &&
+        <EmptyArea>
+          <Lottie
+            source={require('../../assets/animations/search-empty.json')}
+            autoPlay
+            loop
+            style={{ width: 250 }}
           />
+          <EmptyText>No result found...</EmptyText>
+        </EmptyArea>
+      }
+
+      {
+        loadingProducts &&
+        <ActivityIndicator color={theme.colors.green} size="large" />
+      }
+
+      {
+        (filteredProducts?.length > 0 && !loadingProducts) &&
+        <FlatList
+          ListHeaderComponent={<Title>Hot Sales</Title>}
+          data={filteredProducts}
+          keyExtractor={item => item.id}
+          renderItem={renderItem}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+        />
       }
     </Container>
   );

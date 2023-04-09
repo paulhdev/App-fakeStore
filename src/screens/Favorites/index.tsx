@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { ListRenderItemInfo, FlatList } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
+import Lottie from 'lottie-react-native';
 
 import ProductCard, { ProductProps } from '../../components/ProductCard';
 
 import {
   Container,
+  EmptyArea,
+  EmptyText,
   Title,
 } from './styles';
 
@@ -45,7 +48,15 @@ export default function Favorites() {
 
       {
         favorites.length === 0 ?
-          <Title>Nada no momento :\</Title>
+          <EmptyArea>
+            <Lottie
+              source={require('../../assets/animations/empty-fav.json')}
+              autoPlay
+              loop
+              style={{ width: 250 }}
+            />
+            <EmptyText>You have no favorites...</EmptyText>
+          </EmptyArea>
           :
           <FlatList
             data={favorites}

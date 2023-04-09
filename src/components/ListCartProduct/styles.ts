@@ -13,7 +13,7 @@ export const Container = styled.View`
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
-  margin-left: 5px;
+  margin: 5px 0 5px 5px;
 `;
 
 export const InfoArea = styled.View`

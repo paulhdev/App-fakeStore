@@ -22,7 +22,7 @@ export default function CartTabIcon({ color, size }: CartIconProps) {
       {
         cart.length > 0 &&
         <Label>
-          {cart.length <= 99 ? cart.length : '99'}
+          {cart.length <= 99 ? cart.length : '99+'}
         </Label>
       }
     </Container>
