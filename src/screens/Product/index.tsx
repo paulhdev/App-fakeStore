@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
@@ -33,10 +33,13 @@ import {
 
 import { isFavorite, saveFavorite, removeFavorite } from '../../utils/storage';
 import { ProductProps } from '../../components/ProductCard';
+import { CartContext } from '../../contexts/CartContext';
 
 type ScreenProps = NativeStackScreenProps<AppStackParamList, 'Product'>;
 
 export default function Product({ route }: ScreenProps) {
+
+  const { addToCart } = useContext(CartContext);
 
   const navigation = useNavigation();
 
@@ -113,7 +116,9 @@ export default function Product({ route }: ScreenProps) {
           </RatingArea>
         </PriceArea>
 
-        <ButtonAddToCart>
+        <ButtonAddToCart
+          onPress={() => addToCart(product)}
+        >
           <ButtonText>Add To Cart</ButtonText>
         </ButtonAddToCart>
 

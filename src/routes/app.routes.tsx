@@ -11,6 +11,7 @@ import Favorites from '../screens/Favorites';
 import Cart from '../screens/Cart';
 
 import { ProductProps } from '../components/ProductCard';
+import CartTabIcon from '../components/CartTabIcon';
 
 export type AppStackParamList = {
   Home: undefined;
@@ -50,6 +51,7 @@ function StackRoutes() {
 }
 
 export default function AppRoutes() {
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -86,7 +88,8 @@ export default function AppRoutes() {
         component={Cart}
         options={{
           tabBarIcon: ({ color, size }) => {
-            return <Icon name="shoppingcart" color={color} size={size} />;
+            // return <Icon name="shoppingcart" color={color} size={size} />;
+            return <CartTabIcon color={color} size={size} />;
           },
         }}
       />

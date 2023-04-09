@@ -17,7 +17,7 @@ export type ProductProps = {
   category: string;
   description: string;
   image: string;
-  price: string;
+  price: number;
   rating: {
     count: number;
     rate: number;
