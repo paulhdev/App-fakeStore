@@ -14,6 +14,7 @@ type CartContextData = {
   total: number;
   addToCart: (product: ProductProps) => void;
   removeToCart: (product: ProductProps) => void;
+  removeAllItemsCart: () => void;
 };
 
 type CartProviderProps = {
@@ -81,6 +82,10 @@ export default function CartProvider({ children }: CartProviderProps) {
     setTotal(result);
   };
 
+  const removeAllItemsCart = () => {
+    setCart([]);
+  };
+
   return (
     <CartContext.Provider value={{
       cart,
@@ -88,6 +93,7 @@ export default function CartProvider({ children }: CartProviderProps) {
       total,
       addToCart,
       removeToCart,
+      removeAllItemsCart,
     }}>
       {children}
     </CartContext.Provider>

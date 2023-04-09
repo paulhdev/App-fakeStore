@@ -36,6 +36,7 @@ export const InputSearch = styled.TextInput`
   font-size: 16px;
   color: ${props => props.theme.colors.black};
   height: 50px;
+  width: 90%;
 `;
 
 export const ButtonSearch = styled.TouchableOpacity``;

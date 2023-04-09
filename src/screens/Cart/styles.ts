@@ -18,11 +18,26 @@ export const EmptyText = styled.Text`
   margin-top: 30px;
 `;
 
+export const TitleArea = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+`;
+
+export const TitleButton = styled.TouchableOpacity``;
+
+export const TitleButtonText = styled.Text`
+  font-size: 12px;
+  font-weight: bold;
+  color: ${props => props.theme.colors.gray};
+`;
+
 export const Title = styled.Text`
   font-size: 20px;
   font-weight: bold;
   color: ${props => props.theme.colors.black};
-  margin-bottom: 30px;
 `;
 
 export const ListLine = styled.View`

@@ -14,6 +14,9 @@ import {
   ButtonText,
   EmptyArea,
   EmptyText,
+  TitleArea,
+  TitleButton,
+  TitleButtonText,
 } from './styles';
 
 import { CartContext, ProductCartProps } from '../../contexts/CartContext';
@@ -22,13 +25,21 @@ import theme from '../../global/theme';
 
 export default function Cart() {
 
-  const { cart, loadingCart, total } = useContext(CartContext);
+  const { cart, loadingCart, total, removeAllItemsCart } = useContext(CartContext);
 
   const renderItem = ({ item }: ListRenderItemInfo<ProductCartProps>) => <ListCartProduct product={item.product} amount={item.amount} total={item.total} />;
 
   return (
     <Container>
-      <Title>My Cart</Title>
+      <TitleArea>
+        <Title>My Cart</Title>
+        {
+          cart.length > 0 &&
+          <TitleButton onPress={removeAllItemsCart}>
+            <TitleButtonText>Remove all products</TitleButtonText>
+          </TitleButton>
+        }
+      </TitleArea>
 
       {
         cart.length <= 0 ?
